@@ -69,7 +69,7 @@ def call(Map parameters = [:]) {
                            //         error 'Salesforce dev hub org authorization failed.--- ${rc}'
                            //     }
                                 deploymentOrg.devHubAlias = authorizeDevHub
-                                echo("Successfully authorized DevHub --- ${rc}")
+                                echo("Successfully authorized DevHub")
                                 
                             }
 
