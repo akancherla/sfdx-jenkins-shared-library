@@ -22,15 +22,5 @@ def call(Map parameters = [:]) {
         error('Please specify a credential id on sfdxUrlCredentialId')
     }
 
-    pipeline {
-        node {
-            
-            // We don't want the same deployment to run multiple times at same time
-            // We also want to make sure we don't starve the job queue (limiting job to run up to a certain time)
-            throttle([]) {
-                timeout(time: 4, unit: 'HOURS') {
-                
-            }
-        }
-    }
+    
 }
