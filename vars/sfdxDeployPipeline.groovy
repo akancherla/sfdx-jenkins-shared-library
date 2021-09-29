@@ -62,7 +62,7 @@ def call(Map parameters = [:]) {
                             withCredentials([file(credentialsId: sfdxUrlCredentialId, variable: 'server_key_file')]) {
 
                              def toolbelt = tool 'toolbelt'
-                             shWithStatus("C:\\PC_Tools\\sfdx\\bin\\sfdx auth:jwt:grant --instanceurl=${sfInstanceURL} --clientid=${sfConsumerKey} --username=${sfUserName} --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias=${authorizeDevHub}")
+                             shWithStatus("sfdx auth:jwt:grant --instanceurl=${sfInstanceURL} --clientid=${sfConsumerKey} --username=${sfUserName} --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias=${authorizeDevHub}")
                              //  echo "Script---- ${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${sfInstanceURL} --clientid ${sfConsumerKey} --username ${sfUserName} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg"
                            //    rc = command "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${sfInstanceURL} --clientid ${sfConsumerKey} --username ${sfUserName} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg"
                            //     if (rc != 0) {
