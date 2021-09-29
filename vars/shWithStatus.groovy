@@ -2,7 +2,7 @@
 
 def call(script) {
     
-    echo "Script ${script}"
+    //echo "Script ${script}"
 
     def status = sh returnStatus: true, script: script
     if (status != 0) {
