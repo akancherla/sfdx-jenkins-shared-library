@@ -24,6 +24,9 @@ def call(Map parameters = [:]) {
 
     pipeline {
         node {
+
+            throttle([]) {
+                timeout(time: 4, unit: 'HOURS') {
             
             // stage("Checkout") {
                      //   checkout(scm: scm)
@@ -67,8 +70,12 @@ def call(Map parameters = [:]) {
                             echo("No Authorize to org")
 
                         }
-                
+                               
                     }
+                }
+            
+            }
+
         }
     }
 }
