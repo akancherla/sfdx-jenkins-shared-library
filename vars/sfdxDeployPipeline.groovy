@@ -57,6 +57,7 @@ def call(Map parameters = [:]) {
                             withCredentials([file(credentialsId: sfdxUrlCredentialId, variable: 'server_key_file')]) {
                                 shWithStatus('sfdx auth:jwt:grant --instanceurl=$sfInstanceURL --clientid=$sfConsumerKey --username=$sfUserName --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias="$authorizeDevHub"')
                                 deploymentOrg.devHubAlias = authorizeDevHub
+                                echo("Successfully authorized DevHub")
                                 
                             }
 
