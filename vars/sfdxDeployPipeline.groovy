@@ -31,34 +31,7 @@ def call(Map parameters = [:]) {
                 timeout(time: 4, unit: 'HOURS') {
 
 
-                 stage("Authenticate to org") {
-
-                        if (authenticateToOrg) {
-
-                            
-                        }
-                        else {
-
-                            echo("No Authenticate to org")
-
-                        }
-                        
-
-                    }
-
-                    stage('Authorize DevHub') {
-
-                        if (authorizeDevHub) {
-                           
-
-                        }
-                        else {
-
-                            echo("No Authorize to org")
-
-                        }
                 
-                    }   
             }
         }   
     }    
