@@ -22,5 +22,8 @@ def call(Map parameters = [:]) {
         error('Please specify a credential id on sfdxUrlCredentialId')
     }
 
-    
+    pipeline {
+        node {
+        }
+    }
 }
