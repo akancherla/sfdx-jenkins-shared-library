@@ -22,5 +22,47 @@ def call(Map parameters = [:]) {
         error('Please specify a credential id on sfdxUrlCredentialId')
     }
 
+    pipeline {
+        node {
+            
+            // We don't want the same deployment to run multiple times at same time
+            // We also want to make sure we don't starve the job queue (limiting job to run up to a certain time)
+            throttle([]) {
+                timeout(time: 4, unit: 'HOURS') {
+
+
+                 stage("Authenticate to org") {
+
+                        if (authenticateToOrg) {
+
+                            
+                        }
+                        else {
+
+                            echo("No Authenticate to org")
+
+                        }
+                        
+
+                    }
+
+                    stage('Authorize DevHub') {
+
+                        if (authorizeDevHub) {
+                           
+
+                        }
+                        else {
+
+                            echo("No Authorize to org")
+
+                        }
+                
+                    }   
+            }
+        }   
+    }    
+
+
     
 }          
