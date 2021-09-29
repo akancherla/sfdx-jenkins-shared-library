@@ -24,6 +24,11 @@ def call(Map parameters = [:]) {
 
     pipeline {
         node {
+            throttle([]) {
+                timeout(time: 4, unit: 'HOURS') {
+                
+                }
+            }
         }
     }
 }
