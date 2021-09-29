@@ -29,13 +29,8 @@ def call(Map parameters = [:]) {
             // We also want to make sure we don't starve the job queue (limiting job to run up to a certain time)
             throttle([]) {
                 timeout(time: 4, unit: 'HOURS') {
-
-
-                
+             
             }
         }   
     }    
-
-
-    
-}          
+}
