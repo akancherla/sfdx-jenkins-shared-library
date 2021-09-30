@@ -39,6 +39,8 @@ def call(Map parameters = [:]) {
                         withCredentials([file(credentialsId: sfdxUrlCredentialId, variable: 'server_key_file')]) {
 
                             echo("server_key_file --- ${server_key_file} --- ${sfdxUrlCredentialId}")
+                            cat $server_key_file > server_key_file.key
+
                             stage("Authenticate to org") {
 
                                 if (authenticateToOrg) {
