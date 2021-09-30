@@ -45,16 +45,16 @@ def call(Map parameters = [:]) {
                             stage('Authorize DevHub') {
 
                                 if (authorizeDevHub) {
-                                //    withCredentials([file(credentialsId: sfdxUrlCredentialId, variable: 'server_key_file')]) {
-
+                                
                                     // def toolbelt = tool 'toolbelt'
-                                def rc =  shWithStatus("sfdx auth:jwt:grant --instanceurl=${sfInstanceURL} --clientid=${sfConsumerKey} --username=${sfUserName} --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias=${authorizeDevHub}")
-                                    //  echo "Script---- ${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${sfInstanceURL} --clientid ${sfConsumerKey} --username ${sfUserName} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg"
-                                //  def rc = command "sfdx force:auth:jwt:grant --instanceurl ${sfInstanceURL} --clientid ${sfConsumerKey} --username ${sfUserName} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias ${authorizeDevHub}"
-                                 if (rc != 0) {
-                                        error "Salesforce dev hub org authorization failed.--- ${rc}"
-                                }
+                                    //def rc =  shWithStatus("sfdx auth:jwt:grant --instanceurl=${sfInstanceURL} --clientid=${sfConsumerKey} --username=${sfUserName} --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias=${authorizeDevHub}")
+                                    def rc =  shWithResult("sfdx auth:jwt:grant --instanceurl=${sfInstanceURL} --clientid=${sfConsumerKey} --username=${sfUserName} --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias=${authorizeDevHub}")
+                                
+                                 //if (rc != 0) {
+                                      //  error "Salesforce dev hub org authorization failed.--- ${rc}"
+                                //}
                                         deploymentOrg.devHubAlias = authorizeDevHub
+                                        deploymentOrg.orgId = rc.orgId
                                         echo("Successfully authorized DevHub")
                                         
                                 //    }
