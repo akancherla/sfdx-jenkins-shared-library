@@ -68,12 +68,12 @@ def call(Map parameters = [:]) {
                                 //    withCredentials([file(credentialsId: sfdxUrlCredentialId, variable: 'server_key_file')]) {
 
                                     // def toolbelt = tool 'toolbelt'
-                                 shWithStatus("sfdx auth:jwt:grant --instanceurl=${sfInstanceURL} --clientid=${sfConsumerKey} --username=${sfUserName} --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias=${authorizeDevHub}")
+                                def rc =  shWithStatus("sfdx auth:jwt:grant --instanceurl=${sfInstanceURL} --clientid=${sfConsumerKey} --username=${sfUserName} --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias=${authorizeDevHub}")
                                     //  echo "Script---- ${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${sfInstanceURL} --clientid ${sfConsumerKey} --username ${sfUserName} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias HubOrg"
                                 //  def rc = command "sfdx force:auth:jwt:grant --instanceurl ${sfInstanceURL} --clientid ${sfConsumerKey} --username ${sfUserName} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername --setalias ${authorizeDevHub}"
-                              //    if (rc != 0) {
-                              //           error "Salesforce dev hub org authorization failed.--- ${rc}"
-                              //    }
+                                 if (rc != 0) {
+                                        error "Salesforce dev hub org authorization failed.--- ${rc}"
+                                }
                                         deploymentOrg.devHubAlias = authorizeDevHub
                                         echo("Successfully authorized DevHub")
                                         
