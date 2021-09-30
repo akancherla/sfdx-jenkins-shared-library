@@ -37,6 +37,8 @@ def call(Map parameters = [:]) {
                    withEnv(["HOME=${env.WORKSPACE}"]) {
         
                         withCredentials([file(credentialsId: sfdxUrlCredentialId, variable: 'server_key_file')]) {
+
+                            echo("server_key_file --- ${server_key_file}")
                             stage("Authenticate to org") {
 
                                 if (authenticateToOrg) {
