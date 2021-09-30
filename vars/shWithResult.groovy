@@ -17,6 +17,7 @@ def call(script) {
         return object1.result
     } else {
         def json =  bat returnStatus: true, script: script
+        echo "json---- ${json}"
         def object = readJSON text: json
         echo "output---- ${object}"
         if (object.status != 0) {
