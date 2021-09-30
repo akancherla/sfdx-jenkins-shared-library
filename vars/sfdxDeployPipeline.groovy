@@ -16,6 +16,7 @@ def call(Map parameters = [:]) {
     def unlockedPackagesToInstall = parameters.unlockedPackages ?: []
     def unpackagedSourcePathToInstall = parameters.unpackagedSourcePath // comma-separated, at least for now
 
+    def TEST_LEVEL='RunLocalTests'
     def deploymentOrg = new Org()
     def deploymentScratchOrg = new Org()
 
@@ -71,7 +72,40 @@ def call(Map parameters = [:]) {
                                 if (scratchOrgCreate) {
                                 
                                     createScratchOrg deploymentOrg
-                                    echo("Successfully authorized DevHub --- --- ${deploymentOrg}")
+                                    echo("Successfully scratchOrgCreate  --- --- ${deploymentOrg}")
+                                        
+                                }
+                                else {
+
+                                    echo("No Authorize to org")
+
+                                }
+                                    
+                            }
+
+
+                            stage('deploy Scratch Org') {
+
+                                if (scratchOrgCreate) {
+                                
+                                    def deployScratchOrg =  shWithStatus("sfdx force:source:push --targetusername ${env.JOB_NAME}")
+                                    echo("Successfully  deployScratchOrg --- --- ${deployScratchOrg}")
+                                        
+                                }
+                                else {
+
+                                    echo("No Authorize to org")
+
+                                }
+                                    
+                            }
+
+                            stage('Run tests Scratch Org') {
+
+                                if (scratchOrgCreate) {
+                                
+                                    def runTestsScratchOrg =  shWithStatus("sfdx force:apex:test:run --targetusername ${env.JOB_NAME} --wait 10 --resultformat tap --codecoverage --testlevel ${TEST_LEVEL}")
+                                    echo("Successfully  runTestsScratchOrg --- --- ${runTestsScratchOrg}")
                                         
                                 }
                                 else {
