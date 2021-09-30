@@ -6,8 +6,8 @@ def call(script) {
     
   //  def json = sh returnStdout: true, script: script
   //  def object = readJSON text: json
-def json
-def object
+def json = ''
+def object = ''
   if (isUnix()) {
         json =  sh returnStatus: true, script: script
     } else {
