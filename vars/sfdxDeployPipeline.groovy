@@ -48,14 +48,14 @@ def call(Map parameters = [:]) {
                                 
                                     // def toolbelt = tool 'toolbelt'
                                     //def rc =  shWithStatus("sfdx auth:jwt:grant --instanceurl=${sfInstanceURL} --clientid=${sfConsumerKey} --username=${sfUserName} --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias=${authorizeDevHub}")
-                                    def rc =  shWithResult('sfdx auth:jwt:grant --instanceurl=${sfInstanceURL} --clientid=${sfConsumerKey} --username=${sfUserName} --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias="${authorizeDevHub}" --json')
+                                    def rc =  shWithResult("sfdx auth:jwt:grant --instanceurl=${sfInstanceURL} --clientid=${sfConsumerKey} --username=${sfUserName} --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias=${authorizeDevHub} --json")
                                 
                                  //if (rc != 0) {
                                       //  error "Salesforce dev hub org authorization failed.--- ${rc}"
                                 //}
                                         deploymentOrg.devHubAlias = authorizeDevHub
-                                        deploymentOrg.orgId = rc.orgId
-                                        echo("Successfully authorized DevHub")
+                                      //  deploymentOrg.orgId = rc.orgId
+                                        echo("Successfully authorized DevHub --- --- ${rc}")
                                         
                                 //    }
 
