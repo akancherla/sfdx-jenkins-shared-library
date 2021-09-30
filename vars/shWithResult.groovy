@@ -18,6 +18,7 @@ def call(script) {
     } else {
         def json =  bat returnStatus: true, script: script
         def object = readJSON text: json
+        echo "output---- ${object}"
         if (object.status != 0) {
             error "Script ${script} failed: status ${object.status} message: ${object.message} json: ${json}"
          }
