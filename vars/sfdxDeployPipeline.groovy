@@ -24,7 +24,7 @@ def call(Map parameters = [:]) {
         error('Please specify a credential id on sfdxUrlCredentialId')
     }
 
-    pipeline {
+  //  pipeline {
         node {
 
             throttle([]) {
@@ -94,5 +94,5 @@ def call(Map parameters = [:]) {
             }
 
         }
-    }
+   // }
 }
