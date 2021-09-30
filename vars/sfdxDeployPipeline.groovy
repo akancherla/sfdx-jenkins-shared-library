@@ -7,7 +7,7 @@ def call(Map parameters = [:]) {
     echo("Env Jobname ${env.JOB_NAME}")
 
     def packagesToInstall = parameters.packages ?: []
-    def authenticateToOrg = parameters.authenticate ?: []
+    def scratchOrgCreate = parameters.scratchOrgCreate ?: []
     def authorizeDevHub = parameters.authorize ?: []
     def sfInstanceURL = parameters.sfInstanceURL ?: []
     def sfConsumerKey = parameters.sfConsumerKey ?: []
@@ -17,6 +17,7 @@ def call(Map parameters = [:]) {
     def unpackagedSourcePathToInstall = parameters.unpackagedSourcePath // comma-separated, at least for now
 
     def deploymentOrg = new Org()
+    def deploymentScratchOrg = new Org()
 
     
 
@@ -49,11 +50,28 @@ def call(Map parameters = [:]) {
                                     // def toolbelt = tool 'toolbelt'
                                     //def rc =  shWithStatus("sfdx auth:jwt:grant --instanceurl=${sfInstanceURL} --clientid=${sfConsumerKey} --username=${sfUserName} --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias=${authorizeDevHub}")
                                     def authorizeResult =  shWithResult("sfdx auth:jwt:grant --instanceurl=${sfInstanceURL} --clientid=${sfConsumerKey} --username=${sfUserName} --jwtkeyfile=${server_key_file} --setdefaultdevhubusername --setalias=${authorizeDevHub} --json")
+                                    deploymentOrg.alias = "${env.JOB_NAME}"
                                     deploymentOrg.devHubAlias = authorizeDevHub
                                     deploymentOrg.orgId = authorizeResult.orgId
                                     deploymentOrg.username = authorizeResult.username
                                     deploymentOrg.instanceUrl = authorizeResult.instanceUrl
                                     echo("Successfully authorized DevHub --- --- ${authorizeResult}")
+                                        
+                                }
+                                else {
+
+                                    echo("No Authorize to org")
+
+                                }
+                                    
+                            }
+
+                            stage('Scratch Org Creation') {
+
+                                if (scratchOrgCreate) {
+                                
+                                    createScratchOrg deploymentOrg
+                                    echo("Successfully authorized DevHub --- --- ${deploymentOrg}")
                                         
                                 }
                                 else {
