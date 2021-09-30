@@ -6,17 +6,25 @@ def call(script) {
     
   //  def json = sh returnStdout: true, script: script
   //  def object = readJSON text: json
-def json = ''
-def object = ''
+//def json = ''
+//def object = ''
   if (isUnix()) {
-        json =  sh returnStatus: true, script: script
+        def json1 =  sh returnStatus: true, script: script
+        def object1 = readJSON text: json1
+        if (object1.status != 0) {
+            error "Script ${script} failed: status ${object1.status} message: ${object1.message} json: ${json1}"
+         }
+        return object1.result
     } else {
-        json =  bat returnStatus: true, script: script
+        def json =  bat returnStatus: true, script: script
+        def object = readJSON text: json
+        if (object.status != 0) {
+            error "Script ${script} failed: status ${object.status} message: ${object.message} json: ${json}"
+         }
+        return object.result
     }
-    object = readJSON text: json
-    if (object.status != 0) {
-        error "Script ${script} failed: status ${object.status} message: ${object.message} json: ${json}"
-    }
+   // object = readJSON text: json
     
-    return object.result
+    
+    
 }
