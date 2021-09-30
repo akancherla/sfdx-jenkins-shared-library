@@ -81,6 +81,24 @@ def call(Map parameters = [:]) {
                                 }
                                     
                             }
+
+
+                            stage('Delete Scratch Org') {
+
+                                if (scratchOrgCreate) {
+                                
+                                    def deleteScratchOrg =  shWithStatus("sfdx force:org:delete --targetusername ${env.JOB_NAME} --noprompt")
+                                    echo("Successfully authorized DevHub --- --- ${deleteScratchOrg}")
+                                        
+                                }
+                                else {
+
+                                    echo("No Authorize to org")
+
+                                }
+                                    
+                            }
+
                         }
                    }
                 }
