@@ -41,29 +41,7 @@ def call(Map parameters = [:]) {
                             echo("server_key_file --- ${server_key_file} --- ${sfdxUrlCredentialId}")
                             cat $server_key_file > server_key_file.key
 
-                            stage("Authenticate to org") {
-
-                                if (authenticateToOrg) {
-
-                                //    withCredentials([file(credentialsId: sfdxUrlCredentialId, variable: 'SFDX_URL')]) {
-                                        def authenticationResult = shWithResult('sfdx force:auth:sfdxurl:store --setalias="$JOB_NAME" --setdefaultusername --sfdxurlfile=$server_key_file --json')
-                                        deploymentOrg.alias = "${env.JOB_NAME}"
-                                        deploymentOrg.username = authenticationResult.username
-                                        deploymentOrg.orgId = authenticationResult.orgId
-                                        deploymentOrg.instanceUrl = authenticationResult.instanceUrl
-                                        echo("Successfully authorized ${authenticationResult.username} with org ID ${authenticationResult.orgId}")
-                                //    }
-
-                                }
-                                else {
-
-                                    echo("No Authenticate to org")
-
-                                }
-                                
-
-                            }
-
+                           
                             stage('Authorize DevHub') {
 
                                 if (authorizeDevHub) {
