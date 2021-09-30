@@ -12,7 +12,7 @@ def call(script) {
   if (isUnix()) {
         rc =  sh returnStdout: true, script: script
          json = rc1.readLines().drop(1).join(" ")
-         object = readJSON text: json1
+         object = readJSON text: json
         if (object.status != 0) {
             error "Script ${script} failed: status ${object.status} message: ${object.message} json: ${json}"
          }
