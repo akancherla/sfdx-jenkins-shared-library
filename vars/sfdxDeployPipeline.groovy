@@ -31,9 +31,9 @@ def call(Map parameters = [:]) {
             throttle([]) {
                 timeout(time: 4, unit: 'HOURS') {
             
-            // stage("Checkout") {
-                     //   checkout(scm: scm)
-                   // }
+            stage("Checkout") {
+                  checkout(scm: scm)
+             }
 
                    withEnv(["HOME=${env.WORKSPACE}"]) {
         
